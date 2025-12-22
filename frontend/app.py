@@ -5,7 +5,8 @@ st.set_page_config(page_title="StudyBuddy Agent", page_icon="📘")
 st.title("📘 StudyBuddy Agent")
 st.caption("Agent-based study assistant (planner + tools)")
 
-BACKEND_URL = "http://127.0.0.1:8000/chat"
+BACKEND_URL = "https://studybuddy-backend-cysc.onrender.com/chat"
+
 
 if "history" not in st.session_state:
     st.session_state.history = []
