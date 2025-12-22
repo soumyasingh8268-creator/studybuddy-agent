@@ -1,14 +1,30 @@
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+MOCK_AI = os.getenv("MOCK_AI", "false").lower() == "true"
+
+def mock_explain(topic: str) -> str:
+    return (
+        f"[MOCK MODE]\n\n"
+        f"{topic.capitalize()} is a concept where a function calls itself to solve a problem.\n\n"
+        f"It works by breaking a big problem into smaller subproblems of the same type.\n\n"
+        f"Key parts:\n"
+        f"• Base case – stops the recursion\n"
+        f"• Recursive case – function calls itself\n\n"
+        f"Example:\n"
+        f"factorial(n) = n × factorial(n-1)"
+    )
 
 def explain_topic(topic: str) -> str:
+    if MOCK_AI:
+        return mock_explain(topic)
+
     try:
+        from openai import OpenAI
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -20,4 +36,4 @@ def explain_topic(topic: str) -> str:
         return response.choices[0].message.content
 
     except Exception:
-        return "⚠️ AI service unavailable or quota exhausted. Please try later."
+        return mock_explain(topic)
