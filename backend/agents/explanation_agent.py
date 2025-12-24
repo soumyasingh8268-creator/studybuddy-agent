@@ -1,24 +1,5 @@
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-MOCK_AI = os.getenv("MOCK_AI", "false").lower() == "true"
-
-def mock_explain(topic: str) -> str:
-    return (
-        f"[MOCK MODE]\n\n"
-        f"{topic.capitalize()} is a concept where a function calls itself to solve a problem.\n\n"
-        f"It works by breaking a big problem into smaller subproblems of the same type.\n\n"
-        f"Key parts:\n"
-        f"• Base case – stops the recursion\n"
-        f"• Recursive case – function calls itself\n\n"
-        f"Example:\n"
-        f"factorial(n) = n × factorial(n-1)"
-    )
-
-def explain_topic(topic: str) -> str:
-    if MOCK_AI:
+def explain_topic(topic: str, use_mock: bool = False) -> str:
+    if use_mock:
         return mock_explain(topic)
 
     try:
