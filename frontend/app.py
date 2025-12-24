@@ -10,6 +10,12 @@ BACKEND_URL = "https://studybuddy-backend-cysc.onrender.com/chat"
 
 if "history" not in st.session_state:
     st.session_state.history = []
+mode = st.radio(
+    "AI Mode",
+    ["Mock", "Live"],
+    horizontal=True
+)
+
 
 user_input = st.text_input("Ask something (e.g., 'explain recursion')")
 
@@ -18,7 +24,10 @@ if st.button("Send") and user_input.strip():
         try:
             resp = requests.get(
                 BACKEND_URL,
-                params={"user_input": user_input},
+                params={
+                    "user_input": user_input,
+                    "mode": mode.lower()
+                },
                 timeout=10
             )
             data = resp.json()
