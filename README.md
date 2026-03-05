@@ -10,7 +10,6 @@ The goal was to experiment with **agent-based architecture** while building some
 
 * Explain difficult topics in simple language
 * Generate practice questions for revision
-* Create a basic study plan for a topic
 * Switch between **mock responses** and **live AI responses**
 
 This makes it easy to test the system without always calling an external AI API.
@@ -33,9 +32,9 @@ The project has two main parts:
 
 Each agent focuses on a specific task:
 
-* **Planner Agent** → Creates a study plan
+* **Planner Agent** → Decides which agent should handle the request
 * **Explanation Agent** → Explains concepts
-* **Question Agent** → Generates practice questions
+* **Question Agent** → Generates practice questions for revision
 
 ---
 
@@ -65,10 +64,10 @@ studybuddy-agent
 
 ## Tech Stack
 
-* Python
-* Streamlit
-* Basic multi-agent architecture
-* Optional OpenAI API integration
+FastAPI backend for API services
+Streamlit frontend for interaction
+Modular multi-agent architecture
+Optional OpenAI API integration
 
 ---
 
